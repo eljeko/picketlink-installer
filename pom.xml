@@ -3,7 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.picketlink</groupId>
   <artifactId>picketlink-installer</artifactId>
-  <version>2.5.1.Final</version>
+  <version>2.6.0-SNAPSHOT</version>
+
   <packaging>pom</packaging>
 
   <name>PicketLink: JBoss Application Server v7 Installer</name>
@@ -44,7 +45,8 @@
 
   <properties>
     <picketlink.installer.scm.url>https://github.com/picketlink/picketlink-installer</picketlink.installer.scm.url>
-    <picketlink.installer.scm.connection>git@github.com:picketlink/picketlink-installer.git</picketlink.installer.scm.connection>
+    <picketlink.installer.scm.connection>git@github.com:picketlink/picketlink-installer.git
+    </picketlink.installer.scm.connection>
     <bundle.dir>${project.build.directory}/bundle</bundle.dir>
     <installer.root.dir>/picketlink-installer-${project.version}</installer.root.dir>
     <picketlink.federation.quickstarts.version>2.1.8.Final</picketlink.federation.quickstarts.version>
@@ -102,6 +104,61 @@
 
   <build>
     <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/config-tmp/module</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/config/module</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.2</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <filesToInclude>target/config-tmp/module/common/main/module.xml,
+            target/config-tmp/module/core/api/main/module.xml,
+            target/config-tmp/module/core/main/module.xml,
+            target/config-tmp/module/config/main/module.xml,
+            target/config-tmp/module/federation/bindings/main/module.xml,
+            target/config-tmp/module/federation/main/module.xml,
+            target/config-tmp/module/idm/api/main/module.xml,
+            target/config-tmp/module/idm/main/module.xml,
+            target/config-tmp/module/main/module.xml
+          </filesToInclude>
+          <replacements>
+            <replacement>
+              <token>TARGET-VERSION</token>
+              <value>${project.version}</value>
+            </replacement>
+          </replacements>
+          <regex>false</regex>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>

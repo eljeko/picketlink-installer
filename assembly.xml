@@ -30,7 +30,7 @@
 			<outputDirectory>${installer.root.dir}/config</outputDirectory>
 		</fileSet>
     <fileSet>
-      <directory>config/module</directory>
+      <directory>target/config-tmp/module</directory>
       <outputDirectory>${installer.root.dir}/config/module</outputDirectory>
     </fileSet>
   </fileSets>
