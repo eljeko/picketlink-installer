@@ -15,17 +15,18 @@
 	Franklin St, Fifth Floor, Boston, MA ~ 02110-1301 USA, or see the FSF site: 
 	http://www.fsf.org. -->
 
-<module xmlns="urn:jboss:module:1.1" name="org.picketlink.core.api">
-  <resources>
-    <resource-root path="picketlink-api-TARGET-VERSION.jar"/>
-  </resources>
+<module xmlns="urn:jboss:module:1.1" name="org.picketlink.idm.schema">
 
-  <dependencies>
-    <module name="javax.enterprise.api"/>
-    <module name="javax.inject.api"/>
-    <module name="javax.servlet.api" optional="true"/>
-    <module name="javax.persistence.api" optional="true"/>
-    <module name="org.picketlink.common"/>
-    <module name="org.picketlink.idm.api" export="true"/>
-  </dependencies>
+	<resources>
+		<resource-root path="picketlink-idm-simple-schema-TARGET-VERSION.jar" />
+	</resources>
+
+	<dependencies>
+		<module name="javax.api" />
+		<module name="javax.persistence.api"/>
+		<module name="org.hibernate" services="import"/>
+		<module name="org.javassist"/>
+		<module name="org.picketlink.idm.api"/>
+	</dependencies>
+
 </module>

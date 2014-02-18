@@ -3,8 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.picketlink</groupId>
   <artifactId>picketlink-installer</artifactId>
-  <version>2.5.1.Final</version>
-
+  <version>1.1.5-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>PicketLink: JBoss Application Server v7 Installer</name>
@@ -49,49 +48,61 @@
     </picketlink.installer.scm.connection>
     <bundle.dir>${project.build.directory}/bundle</bundle.dir>
     <installer.root.dir>/picketlink-installer-${project.version}</installer.root.dir>
+    <picketlink.version>2.5.3-SNAPSHOT</picketlink.version>
     <picketlink.federation.quickstarts.version>2.1.8.Final</picketlink.federation.quickstarts.version>
+    <picketlink.as.extension.version>1.1.2.Final</picketlink.as.extension.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-common</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-config</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-api</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-impl</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-idm-api</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-idm-impl</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-idm-simple-schema</artifactId>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-federation</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink.distribution</groupId>
       <artifactId>picketlink-jbas7</artifactId>
-      <version>${project.version}</version>
+      <version>${picketlink.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.picketlink</groupId>
+      <artifactId>picketlink-as-extension</artifactId>
+      <version>${picketlink.as.extension.version}</version>
     </dependency>
     <dependency>
       <groupId>org.picketlink.quickstarts</groupId>
@@ -148,17 +159,24 @@
             target/config-tmp/module/federation/main/module.xml,
             target/config-tmp/module/idm/api/main/module.xml,
             target/config-tmp/module/idm/main/module.xml,
-            target/config-tmp/module/main/module.xml
+            target/config-tmp/module/idm/schema/main/module.xml,
+            target/config-tmp/module/main/module.xml,
+            target/config-tmp/module/as/extension/main/module.xml
           </filesToInclude>
           <replacements>
             <replacement>
               <token>TARGET-VERSION</token>
-              <value>${project.version}</value>
+              <value>${picketlink.version}</value>
+            </replacement>
+            <replacement>
+              <token>AS-EXTENSION-VERSION</token>
+              <value>${picketlink.as.extension.version}</value>
             </replacement>
           </replacements>
           <regex>false</regex>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
